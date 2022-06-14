@@ -4,21 +4,50 @@
 
 
 #include "Team.hpp"
+using namespace std;
+
 namespace taragin{
     class Game{
         Team * home_team;
         Team * away_team;
     public:
-        Game(Team* home , Team* away): home_team(home) , away_team(away){}
-
-        &Team Play(){
-            int score_home = Score(55 , 100 , *home_team);
-            int score_away = Score(50 , 100 , *away_team);
-
+        Game(Team* home , Team* away): home_team(home) , away_team(away){
+            Play();
         }
-        int Score(int first , int second , Team team){
-                int r = (rand()%(B-A)) + A;
-                return r;
+        ~Game()= default;
+
+        void Play(){
+            int score_home = Score(55 , 100 , home_team);
+            int score_away = Score(50 , 100 , away_team);
+            // First add all game details to the both teams
+            home_team->points_for+=score_home;
+            home_team->points_against+=score_away;
+            home_team->games_played++;
+            away_team->points_for+=score_away;
+            away_team->points_against+=score_home;
+            away_team->games_played++;
+            //determine the winner
+            if (score_home>=score_away){
+                home_team->wins++;
+                away_team->losses++;
+                home_team->longest_winning_streak++;
+                away_team->longest_losing_streak++;
+                home_team->longest_losing_streak=0;
+                away_team->longest_winning_streak=0;
+            }
+            else{
+                home_team->losses++;
+                away_team->wins++;
+                away_team->longest_winning_streak++;
+                home_team->longest_losing_streak++;
+                away_team->longest_losing_streak=0;
+                home_team->longest_winning_streak=0;
+            }
+        }
+        static int Score(int first , int second , const Team* team){
+                int r = rand()%(second-first+1) + first;
+                return static_cast<int>(r + 10* team->skill);
         }
     };
+
 }
