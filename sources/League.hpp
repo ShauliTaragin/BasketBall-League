@@ -1,7 +1,8 @@
 //
 // Created by shaul on 14/06/2022.
 //
-#include "Team.hpp"
+#pragma once
+#include "Schedule.hpp"
 #include "unordered_set"
 
 using namespace std;
@@ -28,6 +29,7 @@ namespace taragin {
             while (num_of_teams < 20) {
                 teams.insert(new Team{0.6, to_string(num_of_teams)});
             }
+            Play_League();
         }
 
         League() {
@@ -35,6 +37,10 @@ namespace taragin {
             while (num_of_teams < 20) {
                 teams.insert(new Team{0.6, to_string(num_of_teams)});
             }
+            Play_League();
+        }
+        void Play_League(){
+            Schedule schedule(this->teams);
         }
     };
 }

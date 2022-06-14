@@ -9,7 +9,14 @@ namespace taragin {
     class Schedule {
     public:
         Schedule( unordered_set<Team *> teams){
-
+            for (auto home_team : teams) {
+                for (auto away_team : teams) {
+                    if (home_team==away_team){
+                        continue;
+                    }
+                    Game game(home_team, away_team);
+                }
+            }
         }
 
     };

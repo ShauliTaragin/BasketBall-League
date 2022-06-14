@@ -1,6 +1,7 @@
 //
 // Created by shaul on 14/06/2022.
 //
+#pragma once
 #include <iostream>
 #include <stdexcept>
 #include <utility>
@@ -25,6 +26,9 @@ namespace taragin{
                 throw invalid_argument("skill between 0 and 1");
             }
 
+        }
+        bool operator==(const Team* a) const{
+            return a->name == this->name;
         }
     };
 }
