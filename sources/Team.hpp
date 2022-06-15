@@ -20,8 +20,11 @@ namespace taragin{
         int points_against;
         int longest_winning_streak;
         int longest_losing_streak;
+        int curr_longest_winning_streak;
+        int curr_longest_losing_streak;
         Team(double skill , string name):skill(skill) , name(std::move(name)),games_played(0)
-        ,wins(0) , losses(0),points_for(0),points_against(0),longest_losing_streak(0),longest_winning_streak(0){
+        ,wins(0) , losses(0),points_for(0),points_against(0),longest_losing_streak(0),longest_winning_streak(0)
+        ,curr_longest_losing_streak(0) ,curr_longest_winning_streak(0){
             if(skill>1 || skill<0){
                 throw invalid_argument("skill between 0 and 1");
             }
@@ -29,6 +32,9 @@ namespace taragin{
         }
         bool operator==(const Team* a) const{
             return a->name == this->name;
+        }
+        bool operator<(const Team* a) const{
+            return this->wins < a->wins;
         }
     };
 }

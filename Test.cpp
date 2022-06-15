@@ -28,7 +28,23 @@ TEST_CASE("Test Leauge"){
     myTeams.insert(new Team(0.3,"Utah Jazz"));
     myTeams.insert(new Team(0,"Washington Wizards"));
     myTeams.insert(new Team(0.1,"Oklahoma City Thunder"));
-    League * l = new League(myTeams);
-    l->Play_League();
-    cout<<"yes"<<endl;
+    auto * l = new League(myTeams);
+    CHECK_THROWS(new Team(1.1 , "best team ever"));//skill not legal
+    CHECK_THROWS(myTeams.insert(new Team(-1, "best team ever")));//skill not legal
+    CHECK_NOTHROW(myTeams.insert(new Team(0.5 , "Seattle SuperSonics")));
+    CHECK_THROWS(auto * l2 = new League(myTeams));//21 Teams in league
+    vector<string> num_of_leaders = l->leaders(4);
+    cout<<"Teams that are in the playoff are:  "<< '\n';
+    for (const auto& playoff_team : num_of_leaders){
+        cout<< playoff_team << endl;
+    }
+    CHECK_EQ(num_of_leaders.size() , 4);
+    CHECK_THROWS(l->leaders(21));
+    int lws =  l->longest_winning_streak();
+    CHECK(lws<39);
+    CHECK(lws>0);
+    int lls =  l->longest_losing_streak();
+    CHECK(lls<39);
+    CHECK(lls>0);
+
 }
