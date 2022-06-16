@@ -85,5 +85,13 @@ namespace taragin {
         }
         return temp;
     }
+
+    League::~League() {
+        while (std::begin(this->teams) != std::end(this->teams)) {
+            unordered_set<Team*>::iterator to_delete = this->teams.begin();
+            this->teams.erase(to_delete);
+            delete *to_delete;
+        }
+    }
 }
 

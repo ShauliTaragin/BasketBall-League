@@ -21,6 +21,7 @@ namespace taragin {
         League(const unordered_set<Team *>& received_teams) ;
 
         League() ;
+        ~League();
         void Play_League() const;
         vector<string> leaders(size_t num_of_leaders);
         int longest_winning_streak();

@@ -30,6 +30,7 @@ namespace taragin{
             }
 
         }
+        ~Team()=default;
         bool operator==(const Team* a) const{
             return a->name == this->name;
         }

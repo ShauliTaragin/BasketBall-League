@@ -31,6 +31,10 @@ TEST_CASE("Test Leauge"){
     auto * l = new League(myTeams);
     CHECK_THROWS(new Team(1.1 , "best team ever"));//skill not legal
     CHECK_THROWS(myTeams.insert(new Team(-1, "best team ever")));//skill not legal
+            CHECK_THROWS(myTeams.insert(new Team(-5, "best team ever")));//skill not legal
+            CHECK_THROWS(myTeams.insert(new Team(324, "best team ever")));//skill not legal
+            CHECK_THROWS(myTeams.insert(new Team(9, "best team ever")));//skill not legal
+            CHECK_THROWS(myTeams.insert(new Team(1.01, "best team ever")));//skill not legal
     CHECK_NOTHROW(myTeams.insert(new Team(0.5 , "Seattle SuperSonics")));
     CHECK_THROWS(auto * l2 = new League(myTeams));//21 Teams in league
     vector<string> num_of_leaders = l->leaders(4);
@@ -38,6 +42,7 @@ TEST_CASE("Test Leauge"){
     for (const auto& playoff_team : num_of_leaders){
         cout<< playoff_team << endl;
     }
+
     CHECK_EQ(num_of_leaders.size() , 4);
     CHECK_THROWS(l->leaders(21));
     int lws =  l->longest_winning_streak();
@@ -46,5 +51,20 @@ TEST_CASE("Test Leauge"){
     int lls =  l->longest_losing_streak();
     CHECK(lls<39);
     CHECK(lls>0);
+    int a = l->teams_with_positive_ratio();
+    CHECK(a<21);
+    CHECK(a>0);
+
+
+    cout<< "Teams with positive ratio : " << a << endl;
+            CHECK(a<21);
+            CHECK(a>0);
+
+            CHECK(lls<39);
+            CHECK(lls>0);
+    for(auto team: myTeams){
+        delete team;
+    }
+    myTeams.clear();
 
 }
